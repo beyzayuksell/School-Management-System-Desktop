@@ -151,60 +151,79 @@ public class ReadWriteJson {
 		}
 		schoolBus_cnt--;
 	}
+	// Write student to file
+	public JSONObject WriteStudenttoFile() {
+		int std_id = 1;
+		JSONObject std_num = new JSONObject();
+		for (int i = 0; i < s.studentArr.size(); i++) {
+			JSONObject single_std = new JSONObject();
+			single_std.put("Surname", s.studentArr.get(i).getSurname());
+			single_std.put("Name", s.studentArr.get(i).getName());
+			single_std.put("Grade", s.studentArr.get(i).getGrade());
+			single_std.put("Age", s.studentArr.get(i).getAge());
+			single_std.put("Fee", s.studentArr.get(i).getFee());
+			std_num.put(std_id, single_std);
+			std_id++;
+		}  
+		return std_num;
+	}
+	public JSONObject WriteTeachertoFile() {
+		JSONObject bracnh = new JSONObject();
+		for(int i=0; i<t.teacherArr.size(); i++) {
+			JSONObject bracnhTypeSingle = new JSONObject();
+			bracnhTypeSingle.put("surname", t.teacherArr.get(i).getSurname());
+			bracnhTypeSingle.put("name", t.teacherArr.get(i).getName());
+			bracnhTypeSingle.put("salary", t.teacherArr.get(i).getSalary());
+			bracnh.put(t.teacherArr.get(i).getBranch(), bracnhTypeSingle);
+		}
+		return bracnh;
+	}
+	public JSONObject WriteClasstoFile() {
+		int grade_id = 1;
+		JSONObject classg = new JSONObject();
+		JSONObject grade = new JSONObject();
+		for (int i = 0; i < c.classArr.size(); i++) {
+			JSONObject grade_num = new JSONObject();
+			grade_num.put("monday", c.classArr.get(i).getMondayCourse());
+			grade_num.put("tuesday ", c.classArr.get(i).getTuesdayCourse());
+			grade_num.put("wednesday", c.classArr.get(i).getWednesdayCourse());
+			grade_num.put("thursday", c.classArr.get(i).getThursdayCourse());
+			grade_num.put("friday", c.classArr.get(i).getFridayCourse());
+			grade.put(grade_id, grade_num);
+			grade_id++;
+		}
+		classg.put("grade", grade); 
+		return classg;
+	}
+	public JSONObject WriteSchoolBustoFile() {
+		int schoolbus_id = 1;
+		JSONObject schoolbus = new JSONObject();		
+		for (int i = 0; i < sb.schoolBusArr.size(); i++) {
+			JSONObject schbus_single = new JSONObject();
+			schbus_single.put("capacity", sb.schoolBusArr.get(i).getCapacity());
+			schbus_single.put("status", sb.schoolBusArr.get(i).getStatus());
+			schbus_single.put("arrived",sb.schoolBusArr.get(i).getArrived());
+			schbus_single.put("students", sb.schoolBusArr.get(i).getStudentsIDs());
+			schoolbus.put(schoolbus_id, schbus_single);
+			schoolbus_id++;
+		}
+		return schoolbus;
+	}
 	// Write all objects to file
 	@SuppressWarnings("unchecked")
 	public void WriteJsonFile() {
 		try {
-
-			int std_id = 1 , grade_id = 1, schoolbus_id = 1;
 			JSONObject som = new JSONObject();
-			JSONObject schoolAreas = new JSONObject();		
-			// Write student to file
+			JSONObject schoolAreas = new JSONObject();	
 			JSONObject std_num = new JSONObject();
-			for (int i = 0; i < s.studentArr.size(); i++) {
-				JSONObject single_std = new JSONObject();
-				single_std.put("Surname", s.studentArr.get(i).getSurname());
-				single_std.put("Name", s.studentArr.get(i).getName());
-				single_std.put("Grade", s.studentArr.get(i).getGrade());
-				single_std.put("Age", s.studentArr.get(i).getAge());
-				single_std.put("Fee", s.studentArr.get(i).getFee());
-				std_num.put(std_id, single_std);
-				std_id++;
-			}  
-			// Write teacher to file	
+			std_num = WriteStudenttoFile();
 			JSONObject bracnh = new JSONObject();
-			for(int i=0; i<t.teacherArr.size(); i++) {
-				JSONObject bracnhTypeSingle = new JSONObject();
-				bracnhTypeSingle.put("surname", t.teacherArr.get(i).getSurname());
-				bracnhTypeSingle.put("name", t.teacherArr.get(i).getName());
-				bracnhTypeSingle.put("salary", t.teacherArr.get(i).getSalary());
-				bracnh.put(t.teacherArr.get(i).getBranch(), bracnhTypeSingle);
-			}		
-			// Write class to file 
+			bracnh = WriteTeachertoFile();
 			JSONObject classg = new JSONObject();
-			JSONObject grade = new JSONObject();
-			for (int i = 0; i < c.classArr.size(); i++) {
-				JSONObject grade_num = new JSONObject();
-				grade_num.put("monday", c.classArr.get(i).getMondayCourse());
-				grade_num.put("tuesday ", c.classArr.get(i).getTuesdayCourse());
-				grade_num.put("wednesday", c.classArr.get(i).getWednesdayCourse());
-				grade_num.put("thursday", c.classArr.get(i).getThursdayCourse());
-				grade_num.put("friday", c.classArr.get(i).getFridayCourse());
-				grade.put(grade_id, grade_num);
-				grade_id++;
-			}
-			classg.put("grade", grade); 
+			classg =  WriteClasstoFile();
 			// Write school bus to file	
 			JSONObject schoolbus = new JSONObject();		
-			for (int i = 0; i < sb.schoolBusArr.size(); i++) {
-				JSONObject schbus_single = new JSONObject();
-				schbus_single.put("capacity", sb.schoolBusArr.get(i).getCapacity());
-				schbus_single.put("status", sb.schoolBusArr.get(i).getStatus());
-				schbus_single.put("arrived",sb.schoolBusArr.get(i).getArrived());
-				schbus_single.put("students", sb.schoolBusArr.get(i).getStudentsIDs());
-				schoolbus.put(schoolbus_id, schbus_single);
-				schoolbus_id++;
-			}
+			schoolbus = WriteSchoolBustoFile();
 			schoolAreas.put("teacher", bracnh);
 			schoolAreas.put("student", std_num);
 			schoolAreas.put("class", classg);
@@ -224,7 +243,6 @@ public class ReadWriteJson {
 		s.updateStudentToArryList(index, surname, name, grade, age, fee);
 		WriteJsonFile(); // Method calls.. //-- Update Json file	
 	}
-	
 	// Update values in Teacher array list and json file
 	public void updateTeacherToArryList(String surname, String name, String salary, String bracnh_type) {
 		int bracnh_index; // I used like id.
