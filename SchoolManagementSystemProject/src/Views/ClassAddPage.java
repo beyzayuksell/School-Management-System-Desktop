@@ -85,11 +85,11 @@ public class ClassAddPage extends JFrame {
 		textField_gradeID.setColumns(10);
 		
 		// Add all bracnh types to comboboxs
-		comboBox_mday = new JComboBox(rj.bracnhArr.toArray());	
-		comboBox_tuesday = new JComboBox(rj.bracnhArr.toArray());	
-		comboBox_wday = new JComboBox(rj.bracnhArr.toArray());
-		comboBox_thursday = new JComboBox(rj.bracnhArr.toArray());
-		comboBox_fday = new JComboBox(rj.bracnhArr.toArray());
+		comboBox_mday = new JComboBox(rj.t.bracnhArr.toArray());	
+		comboBox_tuesday = new JComboBox(rj.t.bracnhArr.toArray());	
+		comboBox_wday = new JComboBox(rj.t.bracnhArr.toArray());
+		comboBox_thursday = new JComboBox(rj.t.bracnhArr.toArray());
+		comboBox_fday = new JComboBox(rj.t.bracnhArr.toArray());
 		GroupLayout gl_contentPane_edit = new GroupLayout(contentPane_edit);
 		gl_contentPane_edit.setHorizontalGroup(
 			gl_contentPane_edit.createParallelGroup(Alignment.TRAILING)

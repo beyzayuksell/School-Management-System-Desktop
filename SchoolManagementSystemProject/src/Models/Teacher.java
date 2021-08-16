@@ -1,10 +1,20 @@
 package Models;
+
+import java.util.ArrayList;
+
 public class Teacher {
 	
 	private String surname;
 	private String name;
 	private String salary;
 	private String branch;
+	public ArrayList<Teacher> teacherArr;
+	public ArrayList<String> bracnhArr;
+	
+	public Teacher() {
+		teacherArr = new ArrayList<Teacher>();
+		bracnhArr = new ArrayList<String>();
+	}
 	
 	// Overloaded Constructor
 	public Teacher(String surname, String name, String salary, String branch)
@@ -40,7 +50,13 @@ public class Teacher {
 	public void setBranch(String branch) {
 		this.branch = branch;
 	}
+	// The same name and surname should not be in the Teacher list at the same time.
+	public boolean checkHaveSameTeacher(String surname, String name) {
+		for (int i = 0; i < teacherArr.size(); i++) {
+			if (teacherArr.get(i).getSurname().equals(surname.toLowerCase()) && teacherArr.get(i).getName().equals(name.toLowerCase())) 
+				return false;
+		}return true;
+	}
 
-	
 
 }

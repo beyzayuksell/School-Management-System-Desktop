@@ -1,4 +1,7 @@
 package Models;
+
+import java.util.ArrayList;
+
 public class Class {
 	
 	private String mondayCourse;
@@ -6,6 +9,11 @@ public class Class {
 	private String wednesdayCourse;
 	private String thursdayCourse;
 	private String fridayCourse;
+	public ArrayList<Class> classArr;
+	
+	public Class() { 
+		classArr = new ArrayList<Class>();
+	}
 	
 	// Overloaded Constructor
 	public Class(String mondayCourse, String tuesdayCourse, String wednesdayCourse, String thursdayCourse, String fridayCourse) {
@@ -46,5 +54,22 @@ public class Class {
 	public void setFridayCourse(String fridayCourse) {
 		this.fridayCourse = fridayCourse;
 	}
-	
+	// The same all days should not be in the Class list at the same time.
+	public boolean checkHaveSameClass(String mday, String tuesday, String wday, String thursday, String fday) {
+		for (int i = 0; i < classArr.size(); i++) {
+			if (classArr.get(i).getWednesdayCourse().equals(wday.toLowerCase()) && classArr.get(i).getFridayCourse().equals(fday.toLowerCase()) &&
+					classArr.get(i).getMondayCourse().equals(mday.toLowerCase()) && classArr.get(i).getThursdayCourse().equals(thursday.toLowerCase()) && 
+					classArr.get(i).getTuesdayCourse().equals(tuesday.toLowerCase()))
+				return false;
+		}return true;
+	}
+	// Update values in Class array list and json file
+	public void updateClassList(int index, java.lang.String monday, java.lang.String tuesday,
+			java.lang.String wday2, java.lang.String thursday, java.lang.String friday) {
+		classArr.get(index).setMondayCourse(monday);
+		classArr.get(index).setTuesdayCourse(tuesday);
+		classArr.get(index).setWednesdayCourse(wday2);
+		classArr.get(index).setThursdayCourse(thursday);
+		classArr.get(index).setFridayCourse(friday);
+	}
 }

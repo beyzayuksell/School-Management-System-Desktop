@@ -6,13 +6,11 @@ public class SchoolBus {
 	private String capacity;
 	private String status;
 	private String arrived;
-	private ArrayList<String> studentsIDs;
+	public ArrayList<String> studentsIDs;
+	public ArrayList<SchoolBus> schoolBusArr;
 	
-
-	public SchoolBus(String capacity, String status, String arrived) {
-		this.capacity = capacity;
-		this.status = status;
-		this.arrived = arrived;
+	public SchoolBus() {
+		schoolBusArr = new ArrayList<SchoolBus>();
 	}
 
 	public SchoolBus(String capacity, String status, String arrived, ArrayList<String> studentsIDs) {
@@ -54,6 +52,4 @@ public class SchoolBus {
 		this.studentsIDs = students;
 	}
 
-	
-	
 }
