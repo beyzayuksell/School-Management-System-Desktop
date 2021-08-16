@@ -499,7 +499,8 @@ public class HomePage extends JFrame implements ActionListener {
 					System.out.println("Teacher succefully added."); // Control
 					JOptionPane.showMessageDialog(this, "Teacher succefully added.");
 					addTeacherToArryList(surname, name, salary, bracnh_type);
-				}	cleanTextFieldTeacherInfo();
+					cleanTextFieldTeacherInfo();
+				}
 			} else { JOptionPane.showMessageDialog(this, "This Teacher have in list!\nPlease enter different teacher."); }
 		} else { JOptionPane.showMessageDialog(this, "Please fill all field!"); }		
 	}
@@ -518,13 +519,15 @@ public class HomePage extends JFrame implements ActionListener {
 		String grade = Integer.toString(grade2); 
 		// Set Updated value on student table
 		if ((!surname.equals("") && !name.equals("") && !grade.equals("") && !age.equals("") && !fee.equals(""))) {
-			tblmodel.setValueAt(surname, std_table.getSelectedRow(), 1);
-			tblmodel.setValueAt(name, std_table.getSelectedRow(), 2);
-			tblmodel.setValueAt(grade, std_table.getSelectedRow(), 3);
-			tblmodel.setValueAt(age, std_table.getSelectedRow(), 4);
-			tblmodel.setValueAt(fee, std_table.getSelectedRow(), 5);
-			JOptionPane.showMessageDialog(this, "Update Successfully..");
-			rj.updateStudentToArryList(index, surname, name, grade, age, fee); // Method calls..
+			if (rj.checkHaveSameStudent(surname, name)) {
+				tblmodel.setValueAt(surname, std_table.getSelectedRow(), 1);
+				tblmodel.setValueAt(name, std_table.getSelectedRow(), 2);
+				tblmodel.setValueAt(grade, std_table.getSelectedRow(), 3);
+				tblmodel.setValueAt(age, std_table.getSelectedRow(), 4);
+				tblmodel.setValueAt(fee, std_table.getSelectedRow(), 5);
+				JOptionPane.showMessageDialog(this, "Update Successfully..");
+				rj.updateStudentToArryList(index, surname, name, grade, age, fee); // Method calls..
+			} else { JOptionPane.showMessageDialog(this, "This student have in list!\nPlease enter different student."); }
 		} else { JOptionPane.showMessageDialog(this, "Please fill all field!"); }
 	}
 	// Update teacher
@@ -537,11 +540,13 @@ public class HomePage extends JFrame implements ActionListener {
 		String salary = jtTeacherEditRowData.textField_salary.getText();
 		// Set Updated value on teacher table
 		if ((!surname.equals("") && !name.equals("") && !salary.equals(""))) {
-			tblmodel.setValueAt(surname, teacher_table.getSelectedRow(), 0);
-			tblmodel.setValueAt(name, teacher_table.getSelectedRow(), 1);
-			tblmodel.setValueAt(salary, teacher_table.getSelectedRow(), 3);
-			JOptionPane.showMessageDialog(this, "Update Successfully..");
-			rj.updateTeacherToArryList(surname, name, salary, bracnh_type); // Method calls..
+			if (rj.checkHaveSameTeacher(surname, name)) {
+				tblmodel.setValueAt(surname, teacher_table.getSelectedRow(), 0);
+				tblmodel.setValueAt(name, teacher_table.getSelectedRow(), 1);
+				tblmodel.setValueAt(salary, teacher_table.getSelectedRow(), 3);
+				JOptionPane.showMessageDialog(this, "Update Successfully..");
+				rj.updateTeacherToArryList(surname, name, salary, bracnh_type); // Method calls..
+			} else { JOptionPane.showMessageDialog(this, "This Teacher have in list!\nPlease enter different teacher."); }
 		} else { JOptionPane.showMessageDialog(this, "Please fill all field!"); }
 	}
 
@@ -559,13 +564,15 @@ public class HomePage extends JFrame implements ActionListener {
 		String friday = (String) jtClassEditRowData.comboBox_fday.getSelectedItem();
 		// Set Updated value on student table
 		if ((!monday.equals("") && !tuesday.equals("") && !wday.equals("") && !thursday.equals("") && !friday.equals(""))) {
-			tblmodel.setValueAt(monday, class_table.getSelectedRow(), 1);
-			tblmodel.setValueAt(tuesday, class_table.getSelectedRow(), 2);
-			tblmodel.setValueAt(wday, class_table.getSelectedRow(), 3);
-			tblmodel.setValueAt(thursday, class_table.getSelectedRow(), 4);
-			tblmodel.setValueAt(friday, class_table.getSelectedRow(), 5);
-			JOptionPane.showMessageDialog(this, "Update Successfully..");
-			rj.updateClassToArryList(index, monday, tuesday, wday, thursday, friday); // Method calls..
+			if (rj.checkHaveSameClass(monday, tuesday, wday, thursday, friday)) {
+				tblmodel.setValueAt(monday, class_table.getSelectedRow(), 1);
+				tblmodel.setValueAt(tuesday, class_table.getSelectedRow(), 2);
+				tblmodel.setValueAt(wday, class_table.getSelectedRow(), 3);
+				tblmodel.setValueAt(thursday, class_table.getSelectedRow(), 4);
+				tblmodel.setValueAt(friday, class_table.getSelectedRow(), 5);
+				JOptionPane.showMessageDialog(this, "Update Successfully..");
+				rj.updateClassToArryList(index, monday, tuesday, wday, thursday, friday); // Method calls..
+			} else { JOptionPane.showMessageDialog(this, "This class have in list!\nPlease enter different class."); }
 		} else { JOptionPane.showMessageDialog(this, "Please fill all field!"); }	
 	}	
 	@Override
